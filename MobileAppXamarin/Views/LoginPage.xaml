@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MobileAppXamarin.ViewModels;assembly=MobileAppXamarin"
+             x:Class="MobileAppXamarin.Views.LoginPage"
+             x:DataType="viewModels:LoginPageViewModel"
+             >
+    <ContentPage.BindingContext>
+        <viewModels:LoginPageViewModel></viewModels:LoginPageViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 10 ,20 ,10">
+                <Label Text="Login to our employee system!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+    
+    
+
+</ContentPage>

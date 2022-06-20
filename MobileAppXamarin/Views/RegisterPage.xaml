@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MobileAppXamarin.ViewModels;assembly=MobileAppXamarin"
+             xmlns:helpers="clr-namespace:MobileAppXamarin.Helpers;assembly=MobileAppXamarin"
+             x:Class="MobileAppXamarin.Views.RegisterPage"
+             x:DataType="viewModels:RegisterPageViewModel"
+             >
+    <ContentPage.BindingContext>
+        <viewModels:RegisterPageViewModel></viewModels:RegisterPageViewModel>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 10 ,20 ,10">
+                <Label Text="Register to our employee system!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 0 ,20 ,0">
+                <StackLayout Orientation="Horizontal">
+                    <Switch IsToggled="false" 
+                            Margin="10, 0, 0 ,0">
+                        <Switch.Behaviors>
+                            <helpers:SwitchBehavior Command="{Binding ImAnEmployeeCommand}" />
+                        </Switch.Behaviors>
+                    </Switch>
+                    <Label Text="I'm an employee"
+                           TextColor="White"
+                           FontSize="Body"
+                           VerticalOptions="CenterAndExpand"
+                    ></Label>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 10 ,20 ,10">
+                <StackLayout Orientation="Vertical">
+                    <Entry Placeholder="Name"
+                           Text="{Binding Name}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+                    <Entry Placeholder="Middle name"
+                           Text="{Binding MiddleName}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+                    <Entry Placeholder="Surname"
+                           Text="{Binding Surname}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+                    <Entry Placeholder="Email"
+                           Text="{Binding Email}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+                    <Entry Placeholder="Phone number"
+                           Text="{Binding PhoneNumber}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+                    <Entry Placeholder="Department code"
+                           Text="{Binding DepartmentCode}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                           IsEnabled="{Binding IsEnable}">
+                        <Entry.Behaviors>
+                            <helpers:NumericValidationBehavior />
+                        </Entry.Behaviors>
+                    </Entry>
+                </StackLayout>
+            </Frame>
+            <Button Text="Register"
+                    FontSize="22"
+                    Font="Bold"
+                    Background="#2196F3"
+                    TextColor="#fff" 
+                    Margin="60,0,60,0"
+                    CornerRadius="40"
+                    Command="{Binding RegisterCommand}"
+            ></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

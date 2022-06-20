@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MobileAppXamarin.ViewModels;assembly=MobileAppXamarin"
+             x:Class="MobileAppXamarin.MainPage"
+             x:DataType="viewModels:MainPageViewModel">
+    <ContentPage.BindingContext>
+        <viewModels:MainPageViewModel></viewModels:MainPageViewModel>
+    </ContentPage.BindingContext>
+
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 10 ,10 ,10">
+            <Label Text="Welcome to my application!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="10"  >
+            <StackLayout Orientation="Vertical">
+                <Button Text="Go to registration" 
+                        Background="#fff"  
+                        TextColor="#2196F3"
+                        Margin="60 ,0 ,60 ,10"
+                        CornerRadius="40"
+                        Command="{Binding RegisterCommand}"></Button>
+                <Button Text="Go to login page" 
+                        Background="#fff"
+                        TextColor="#2196F3" 
+                        Margin="60,0,60,0"
+                        CornerRadius="40"
+                        Command="{Binding LoginCommand}"
+                        ></Button>
+            </StackLayout>
+        </Frame>
+
+    </StackLayout>
+
+</ContentPage>
