@@ -14,8 +14,7 @@ namespace MobileAppXamarin.ViewModels
 {
     internal class RegisterPageViewModel : INotifyPropertyChanged
     {
-        private readonly int NOT_BELONG_TO_ANY_DEPARTAMENT = -1;
-        private readonly string PORT_CODE = "5262";
+        public static readonly string PORT_CODE = "5262";
 
         private string _name;
         public string Name
@@ -24,7 +23,7 @@ namespace MobileAppXamarin.ViewModels
             set
             {
                 _name = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
                 RegisterCommand.ChangeCanExecute();
             }
         }
@@ -35,7 +34,7 @@ namespace MobileAppXamarin.ViewModels
             set
             {
                 _isEnable = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnable)));
+                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnable)));
                 RegisterCommand.ChangeCanExecute();
             }
         }
@@ -138,20 +137,24 @@ namespace MobileAppXamarin.ViewModels
             }
 
             Employee employee;
-            if (IsEnable)
-                employee = new Employee(Name, MiddleName, Surname, Email, PhoneNumber, int.Parse(DepartmentCode));
-            else
-                employee = new Employee(Name, MiddleName, Surname, Email, PhoneNumber, NOT_BELONG_TO_ANY_DEPARTAMENT);
-
             try
             {
-                await SaveEmployeeToApi(employee);
-                await App.Current.MainPage.DisplayAlert("Powodzenie", "Udało się przesłać twój formularz!", "OK");
+                if (IsEnable)
+                {
+                    employee = new Employee(Name, MiddleName, Surname, Email, PhoneNumber, int.Parse(DepartmentCode));
+                    await SaveEmployeeToApi(employee);
+                    await App.Current.MainPage.DisplayAlert("Powodzenie", "Udało się przesłać twój formularz!", "OK");
+                }
+                else
+                {
+                    employee = new Employee(Name, MiddleName, Surname, Email, PhoneNumber);
+                    await SavePersonToApi(employee);
+                    await App.Current.MainPage.DisplayAlert("Powodzenie", "Udało się przesłać twój formularz!", "OK");
+                }
             }
-            catch (Exception ex)
-            { 
-                await App.Current.MainPage.DisplayAlert("Błąd", "Niepowodzenie wysłania zapytania do naszych serwerów", "OK");
-                Console.WriteLine(ex.StackTrace);
+            catch(Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Powodzenie", ex.Message, "OK");
             }
         }
 
@@ -161,17 +164,23 @@ namespace MobileAppXamarin.ViewModels
 
             var requestContent = new StringContent(JsonSerializer.Serialize(employee), Encoding.UTF8, "application/json");
 
-            var response = await httpClient.PostAsync($"http://10.0.2.2:{PORT_CODE}/Person/SaveEmployeeOrPerson", requestContent);
+            var response = await httpClient.PostAsync($"http://10.0.2.2:{PORT_CODE}/Person/SaveEmployee", requestContent);
             await App.Current.MainPage.DisplayAlert("Kod odpowiedzi serwera", response.ToString(), "ok");
             response.EnsureSuccessStatusCode();
             
         }
 
-        //private void DownloadDataFromApi()
-        //{
-        //    HttpClient httpClient = new HttpClient();
-        //}
+        private async Task SavePersonToApi(Employee employee)
+        {
+            HttpClient httpClient = new HttpClient();
 
+            var requestContent = new StringContent(JsonSerializer.Serialize(employee), Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync($"http://10.0.2.2:{PORT_CODE}/Person/SavePerson", requestContent);
+            await App.Current.MainPage.DisplayAlert("Kod odpowiedzi serwera", response.ToString(), "ok");
+            response.EnsureSuccessStatusCode();
+
+        }
         private bool Validation()
         {
             if (IsEnable) // Selected employee option.

@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:MobileAppXamarin.ViewModels;assembly=MobileAppXamarin"
+             xmlns:helpers="clr-namespace:MobileAppXamarin.Helpers;assembly=MobileAppXamarin"
              x:Class="MobileAppXamarin.Views.LoginPage"
              x:DataType="viewModels:LoginPageViewModel"
              >
@@ -14,6 +15,46 @@
             <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 10 ,20 ,10">
                 <Label Text="Login to our employee system!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
             </Frame>
+
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="30" Margin="20, 10 ,20 ,10">
+                <StackLayout Orientation="Vertical">
+                    <Entry Placeholder="Name"
+                           Text="{Binding Name}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+                    <Entry Placeholder="Password"
+                           IsPassword="True"
+                           Text="{Binding Password}"
+                           TextColor="White"
+                           PlaceholderColor="#3b7571"
+                    ></Entry>
+
+                    <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" >
+                        <Switch IsToggled="false" >
+                            <Switch.Behaviors>
+                                <helpers:SwitchBehavior Command="{Binding ImAnEmployeeCommand}" />
+                            </Switch.Behaviors>
+                        </Switch>
+                        <Label Text="I'm an employee"
+                               TextColor="White"
+                               FontSize="Body"
+                               VerticalOptions="CenterAndExpand"
+                        ></Label>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <Button Text="Login"
+                    VerticalOptions="EndAndExpand"
+                    FontSize="22"
+                    Font="Bold"
+                    Background="#2196F3"
+                    TextColor="#fff" 
+                    Margin="60,0,60,20"
+                    CornerRadius="40"
+                    Command="{Binding LoginCommand}"
+            ></Button>
         </StackLayout>
     </ContentPage.Content>
     
