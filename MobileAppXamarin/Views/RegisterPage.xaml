@@ -37,7 +37,8 @@
                            TextColor="White"
                            PlaceholderColor="#3b7571"
                     ></Entry>
-                    <Entry Placeholder="Middle name"
+                    <Entry Placeholder="Password"
+                           IsPassword="True"
                            Text="{Binding MiddleName}"
                            TextColor="White"
                            PlaceholderColor="#3b7571"
